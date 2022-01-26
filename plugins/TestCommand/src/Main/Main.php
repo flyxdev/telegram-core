@@ -1,6 +1,6 @@
 <?php
 
-namespace Main\Main;
+namespace Main;
 
 use race\event\Listener;
 use race\plugin\PluginBase;
@@ -9,7 +9,6 @@ class Main extends PluginBase implements Listener
 {
     public function execute(): void
     {
-        $this->getLogger()->log("Plugin loading done");
-        $this->getLogger()->log(json_encode($this->getApi()->apiRequest("getMe")));
+        $this->getApi()->apiRequest('sendMessage', ['chat_id' => 5041808375, 'text' => '123']);
     }
 }

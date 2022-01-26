@@ -42,21 +42,17 @@ class Server
         $pluginLoader = new PluginManager($logger, dirname(__FILE__, 2) . '/plugins');
         $logger->log(json_encode($pluginLoader->loadPlugins(dirname(__FILE__, 2) . '/plugins')));
 
-
         $api = new TelegramApi($config['bot']['access_token']);
         $pool = new \Pool(16, BotWorker::class);
 
         $logger->log("Loading done in: " . substr((microtime(true) - $this->start), 0, -12) . " ms");
         while (true) {
             foreach ($api->apiRequest("getUpdates", ['offset' => static::$update_id]) as $key => $updates) {
-                $pool->submit((new Task($updates)));
+                $pool->submit((new Task($updates, $pluginLoader)));
                 static::$update_id = $updates['update_id'] + 1;
             }
         }
 
-
-        while ($pool->collect());
-        $pool->shutdown();
     }
 }
 

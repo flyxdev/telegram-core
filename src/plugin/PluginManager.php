@@ -8,7 +8,7 @@ use RuntimeException;
 
 class PluginManager
 {
-    protected array $plugins = [];
+    public array $plugins = [];
 
     protected ?string $pluginDataDirectory;
 
@@ -25,7 +25,7 @@ class PluginManager
         }
     }
 
-    public function getPlugin(?string $name): ?Plugin
+    public function getPlugin(?string $name)
     {
         if (isset($this->plugins[$name])) {
             return $this->plugins[$name];
@@ -43,21 +43,17 @@ class PluginManager
     {
         foreach (scandir($path) as $files) {
             if (preg_match('/^(.|..)$/', $files)) continue;
-            $this->logger->log("Loading plugin {$files}..");
-            $configPath = $path.'/'.$files.'/plugin.yml';
+            $this->logger->log("[{$files}] Loading plugin..");
+            $configPath = $path . '/' . $files . '/plugin.yml';
             if (is_file($configPath)) {
-                $configPLugin = \yaml_parse(file_get_contents($configPath));
-                var_dump($configPLugin);
+                $configPlugin = \yaml_parse(file_get_contents($configPath));
             } else {
                 throw new RuntimeException("Config file not found");
             }
             require_once("{$path}/{$files}/src/Main/Main.php");
-
-            $plugin = new $configPLugin['main']();
-            $plugin->execute();
-
-            //var_dump($configPLugin);
-            $this->plugins[] = $files;
+            $plugin = new $configPlugin['main']();
+            $this->plugins[] = ["plugin" => $plugin, "regex" => $configPlugin['regex']];
+            $this->logger->log("[{$files}] Loading done..");
         }
         return $this->plugins;
     }
