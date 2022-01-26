@@ -1,0 +1,3 @@
+name: TestCommand
+main: \Main\Main\Main
+version: "1.0.0"
