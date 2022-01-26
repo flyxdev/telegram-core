@@ -1,0 +1,9 @@
+{
+    "name": "flyxdev/telegram-racebot",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "race\\": "src/"
+        }
+    }
+}
