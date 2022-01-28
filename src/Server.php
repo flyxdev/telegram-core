@@ -43,7 +43,7 @@ class Server
 
         $logger = new Logger();
         $pluginLoader = new PluginManager($logger, $api, dirname(__FILE__, 2) . '/plugins');
-        $logger->log(json_encode($pluginLoader->loadPlugins(dirname(__FILE__, 2) . '/plugins')));
+        $pluginLoader->loadPlugins(dirname(__FILE__, 2) . '/plugins');
 
         $pool = new \Pool(16, Worker::class);
 

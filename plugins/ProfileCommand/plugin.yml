@@ -1,0 +1,4 @@
+name: ProfileCommand
+regex: проф|проф
+main: \ProfileCommand\Main
+version: "1.0.0"

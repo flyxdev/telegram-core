@@ -18,7 +18,7 @@ class PluginManager
         $this->logger = $logger;
         $this->api = $api;
         $this->pluginDataDirectory = $pluginDataDirectory;
-        
+
         if (!is_null($this->pluginDataDirectory)) {
             if (!file_exists($this->pluginDataDirectory)) {
                 @mkdir($this->pluginDataDirectory, 0777, true);
@@ -53,7 +53,8 @@ class PluginManager
             } else {
                 throw new RuntimeException("Config file not found");
             }
-            require_once("{$path}/{$files}/src/Main/Main.php");
+            require_once("{$path}/{$files}/src/Main.php");
+
             $plugin = new $configPlugin['main']($this->api, $this->logger);
 
             $this->plugins[] = ["plugin" => $plugin, "regex" => $configPlugin['regex']];

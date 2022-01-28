@@ -21,7 +21,6 @@ class Task extends \Threaded
         $user_id = $this->updates['message']['from']['id'];
         $args = explode(" ", $this->updates['message']['text']);
 
-        $logger->log(json_encode($this->updates));
         $logger->log("New message from {$user_id} threaded id: " . $this->worker->getThreadId());
 
         foreach ($this->manager->plugins as $key => $data) {
