@@ -2,20 +2,23 @@
 
 namespace race\plugin;
 
+use race\api\TelegramApi;
 use race\utils\Logger;
-use race\plugin\Plugin;
 use RuntimeException;
 
 class PluginManager
 {
     public array $plugins = [];
-
     protected ?string $pluginDataDirectory;
+    public ?TelegramApi $api = null;
+    public ?Logger $logger = null;
 
-    public function __construct(Logger $logger, ?string $pluginDataDirectory)
+    public function __construct(Logger $logger, TelegramApi $api, ?string $pluginDataDirectory)
     {
         $this->logger = $logger;
+        $this->api = $api;
         $this->pluginDataDirectory = $pluginDataDirectory;
+        
         if (!is_null($this->pluginDataDirectory)) {
             if (!file_exists($this->pluginDataDirectory)) {
                 @mkdir($this->pluginDataDirectory, 0777, true);
@@ -51,7 +54,8 @@ class PluginManager
                 throw new RuntimeException("Config file not found");
             }
             require_once("{$path}/{$files}/src/Main/Main.php");
-            $plugin = new $configPlugin['main']();
+            $plugin = new $configPlugin['main']($this->api, $this->logger);
+
             $this->plugins[] = ["plugin" => $plugin, "regex" => $configPlugin['regex']];
             $this->logger->log("[{$files}] Loading done..");
         }

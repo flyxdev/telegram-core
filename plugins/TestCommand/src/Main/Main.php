@@ -2,13 +2,12 @@
 
 namespace Main;
 
-use race\event\Listener;
 use race\plugin\PluginBase;
 
-class Main extends PluginBase implements Listener
+class Main extends PluginBase
 {
     public function execute(): void
     {
-        $this->getApi()->apiRequest('sendMessage', ['chat_id' => 5041808375, 'text' => '123']);
+        $this->getApi()->apiRequest('sendMessage', ['chat_id' => 821846834, 'text' => '123']);
     }
 }

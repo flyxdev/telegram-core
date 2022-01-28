@@ -2,28 +2,27 @@
 
 namespace race\plugin;
 
-use race\api\TelegramApi;
-use race\plugin\Plugin;
 use race\utils\Logger;
+use race\api\TelegramApi;
 
-abstract class PluginBase
+abstract class PluginBase implements Plugin
 {
-    private TelegramApi $api;
+    public TelegramApi $api;
     public Logger $logger;
 
-    public function __construct()
+    public function __construct(TelegramApi $api, Logger $logger)
     {
-        $this->logger = new Logger(); 
+        $this->api = $api;
+        $this->logger = $logger;
     }
 
-    public function getLogger(): Logger
+    public function getLogger()
     {
         return $this->logger;
     }
 
-    public function getApi(): TelegramApi
+    public function getApi()
     {
-        $api = new TelegramApi("5260060715:AAHHVnOvYZt_tx3JN61fJDm0VSLn-5mTwPA");
-        return $api;
+        return $this->api;
     }
 }

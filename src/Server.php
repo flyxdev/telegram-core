@@ -5,7 +5,7 @@ namespace race;
 use race\api\TelegramApi;
 use race\exceptions\BotException;
 use race\plugin\PluginManager;
-use race\thread\BotWorker;
+use race\thread\Worker;
 use race\thread\Task;
 use race\utils\Logger;
 
@@ -37,13 +37,15 @@ class Server
         }
         $config = json_decode(file_get_contents($config_file), true);
         $logger->log("Config loading done..");
+        
+        $api = new TelegramApi($config['bot']['access_token']);
+        $logger->log("Telegram API connected..");
 
         $logger = new Logger();
-        $pluginLoader = new PluginManager($logger, dirname(__FILE__, 2) . '/plugins');
+        $pluginLoader = new PluginManager($logger, $api, dirname(__FILE__, 2) . '/plugins');
         $logger->log(json_encode($pluginLoader->loadPlugins(dirname(__FILE__, 2) . '/plugins')));
 
-        $api = new TelegramApi($config['bot']['access_token']);
-        $pool = new \Pool(16, BotWorker::class);
+        $pool = new \Pool(16, Worker::class);
 
         $logger->log("Loading done in: " . substr((microtime(true) - $this->start), 0, -12) . " ms");
         while (true) {

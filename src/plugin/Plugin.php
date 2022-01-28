@@ -7,9 +7,5 @@ use race\utils\Logger;
 
 interface Plugin
 {
-    public function __construct(TelegramApi $api, string $dataFolder);
-
-    public function isEnabled(): bool;
-    
-    public function getLogger(): Logger;
+    public function __construct(TelegramApi $api, Logger $logger);
 }
