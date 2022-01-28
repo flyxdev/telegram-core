@@ -1,9 +1,8 @@
 <?php
 
-namespace race\thread;
+namespace core\thread;
 
-use race\plugin\PluginBase;
-use race\plugin\PluginManager;
+use core\plugin\PluginManager;
 
 class Task extends \Threaded
 {

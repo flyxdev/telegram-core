@@ -1,6 +1,6 @@
 <?php
 
-namespace race\utils;
+namespace core\utils;
 
 class Logger extends \Threaded
 {

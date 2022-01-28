@@ -1,7 +1,7 @@
 <?php
 
-namespace race\telegram\exceptions;
-use race\telegram\exceptions\TelegramException;
+namespace core\telegram\exceptions;
+use core\telegram\exceptions\TelegramException;
 
 class TelegramApiErrorException extends TelegramException
 {

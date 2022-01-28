@@ -1,9 +1,9 @@
 <?php
 
-namespace race\plugin;
+namespace core\plugin;
 
-use race\utils\Logger;
-use race\api\TelegramApi;
+use core\utils\Logger;
+use core\api\TelegramApi;
 
 abstract class PluginBase implements Plugin
 {

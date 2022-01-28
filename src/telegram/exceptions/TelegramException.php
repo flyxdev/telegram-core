@@ -1,6 +1,6 @@
 <?php
 
-namespace race\telegram\exceptions;
+namespace core\telegram\exceptions;
 
 use Exception;
 use Throwable;

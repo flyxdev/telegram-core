@@ -1,8 +1,8 @@
 <?php
 
-namespace race\api;
+namespace core\api;
 
-use race\telegram\exceptions\TelegramApiErrorException;
+use core\telegram\exceptions\TelegramApiErrorException;
 
 class TelegramApi
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace race\exceptions;
+namespace core\exceptions;
 
 use Exception;
 use Throwable;

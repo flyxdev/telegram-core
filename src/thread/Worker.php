@@ -1,8 +1,8 @@
 <?php
 
-namespace race\thread;
+namespace core\thread;
 
-use race\utils\Logger;
+use core\utils\Logger;
 
 class Worker extends \Worker
 {

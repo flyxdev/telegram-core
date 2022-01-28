@@ -2,7 +2,7 @@
 
 namespace Main;
 
-use race\plugin\PluginBase;
+use core\plugin\PluginBase;
 
 class Main extends PluginBase
 {

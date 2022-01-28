@@ -1,13 +1,13 @@
 <?php
 
-namespace race;
+namespace core;
 
-use race\api\TelegramApi;
-use race\exceptions\BotException;
-use race\plugin\PluginManager;
-use race\thread\Worker;
-use race\thread\Task;
-use race\utils\Logger;
+use core\api\TelegramApi;
+use core\exceptions\BotException;
+use core\plugin\PluginManager;
+use core\thread\Worker;
+use core\thread\Task;
+use core\utils\Logger;
 
 class Server
 {
@@ -58,4 +58,4 @@ class Server
     }
 }
 
-(new \race\Server)->init();
+(new \core\Server)->init();

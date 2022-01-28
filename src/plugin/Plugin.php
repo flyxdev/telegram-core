@@ -1,9 +1,9 @@
 <?php
 
-namespace race\plugin;
+namespace core\plugin;
 
-use race\api\TelegramApi;
-use race\utils\Logger;
+use core\api\TelegramApi;
+use core\utils\Logger;
 
 interface Plugin
 {

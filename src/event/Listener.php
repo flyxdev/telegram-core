@@ -1,6 +1,6 @@
 <?php
 
-namespace race\event;
+namespace core\event;
 
 interface Listener
 {
