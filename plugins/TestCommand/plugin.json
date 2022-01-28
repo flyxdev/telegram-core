@@ -1,0 +1,7 @@
+{
+    "name": "TestCommand",
+    "description": "Тестовая команда",
+    "regex": "тест|тест",
+    "main": "src/Main.php",
+    "version": "0.1"
+}

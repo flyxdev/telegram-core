@@ -47,15 +47,15 @@ class PluginManager
         foreach (scandir($path) as $files) {
             if (preg_match('/^(.|..)$/', $files)) continue;
             $this->logger->log("[{$files}] Loading plugin..");
-            $configPath = $path . '/' . $files . '/plugin.yml';
+            $configPath = $path . '/' . $files . '/plugin.json';
             if (is_file($configPath)) {
-                $configPlugin = \yaml_parse(file_get_contents($configPath));
+                $configPlugin = json_decode(file_get_contents($configPath), true);
             } else {
                 throw new RuntimeException("Config file not found");
             }
-            require_once("{$path}/{$files}/src/Main.php");
+            require_once("{$path}/{$files}/{$configPlugin['main']}");
 
-            $plugin = new $configPlugin['main']($this->api, $this->logger);
+            $plugin = new ($configPlugin['name']."\\"."Main")($this->api, $this->logger);
 
             $this->plugins[] = ["plugin" => $plugin, "regex" => $configPlugin['regex']];
             $this->logger->log("[{$files}] Loading done..");

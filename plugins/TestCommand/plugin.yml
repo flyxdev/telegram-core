@@ -1,4 +1,0 @@
-name: TestCommand
-regex: тест|test
-main: \TestCommand\Main
-version: "1.0.0"

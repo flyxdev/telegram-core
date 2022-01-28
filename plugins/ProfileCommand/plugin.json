@@ -1,0 +1,7 @@
+{
+    "name": "ProfileCommand",
+    "description": "Получить данные аккаунта",
+    "regex": "проф|профиль|акк|аккаунт",
+    "main": "src/Main.php",
+    "version": "0.1"
+}
