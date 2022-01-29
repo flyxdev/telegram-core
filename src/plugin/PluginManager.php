@@ -4,6 +4,7 @@ namespace core\plugin;
 
 use core\api\TelegramApi;
 use core\utils\Logger;
+use Exception;
 use RuntimeException;
 
 class PluginManager
@@ -33,7 +34,6 @@ class PluginManager
         if (isset($this->plugins[$name])) {
             return $this->plugins[$name];
         }
-
         return null;
     }
 
@@ -48,17 +48,24 @@ class PluginManager
             if (preg_match('/^(.|..)$/', $files)) continue;
             $this->logger->log("[{$files}] Loading plugin..");
             $configPath = $path . '/' . $files . '/plugin.json';
+
             if (is_file($configPath)) {
                 $configPlugin = json_decode(file_get_contents($configPath), true);
             } else {
-                throw new RuntimeException("Config file not found");
+                throw new RuntimeException("Config in {$path} are not exists.");
             }
-            require_once("{$path}/{$files}/{$configPlugin['main']}");
 
-            $plugin = new ($configPlugin['name']."\\"."Main")($this->api, $this->logger);
+            $pluginMainFile = "{$path}/{$files}/{$configPlugin['main']}";
+            if (is_file($pluginMainFile)) {
+                
+                
+                require_once($pluginMainFile);
+                $plugin = new ($configPlugin['name'] . "\\" . "Main")($this->api, $this->logger);
 
-            $this->plugins[] = ["plugin" => $plugin, "regex" => $configPlugin['regex']];
-            $this->logger->log("[{$files}] Loading done..");
+                $this->plugins[] = ["plugin" => $plugin, "regex" => $configPlugin['regex']];
+                $this->logger->log("[{$files}] Loading done..");
+            } else {
+            }
         }
         return $this->plugins;
     }
