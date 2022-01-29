@@ -46,7 +46,7 @@ class Server
         }
         require_once($bootstrap);
         $logger = new Logger();
-        $logger->log("Bot is starting up..");
+        $logger->warning("Bot is starting up..", [1, 2, 3]);
 
         $config_file = dirname(__FILE__, 2) . '/config.json';
         if (!is_file($config_file)) {
@@ -54,10 +54,10 @@ class Server
             exit(1);
         }
         $config = json_decode(file_get_contents($config_file), true);
-        $logger->log("Config loading done..");
+        $logger->info("Config loading done..");
         
         $api = new TelegramApi($config['bot']['access_token']);
-        $logger->log("Telegram API connected..");
+        $logger->info("Telegram API connected..");
 
         $logger = new Logger();
         $pluginLoader = new PluginManager($logger, $api, dirname(__FILE__, 2) . '/plugins');
@@ -65,7 +65,7 @@ class Server
 
         $pool = new \Pool(16, Worker::class);
 
-        $logger->log("Loading done in: " . substr((microtime(true) - $this->start), 0, -12) . " ms");
+        $logger->warning("Loading done in: " . substr((microtime(true) - $this->start), 0, -12) . " ms");
         while (true) {
             foreach ($api->apiRequest("getUpdates", ['offset' => static::$update_id]) as $key => $updates) {
                 $pool->submit((new Task($updates, $pluginLoader)));

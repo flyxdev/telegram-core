@@ -39,7 +39,7 @@ class Task extends \Threaded
         $user_id = $this->updates['message']['from']['id'];
         $args = explode(" ", $this->updates['message']['text']);
 
-        $logger->log("New message from {$user_id} threaded id: " . $this->worker->getThreadId());
+        $logger->warning("New message from {$user_id} threaded id: " . $this->worker->getThreadId());
 
         foreach ($this->manager->plugins as $key => $data) {
             if (preg_match("/^({$data['regex']})$/", mb_strtolower($args[0], 'UTF-8'))) {

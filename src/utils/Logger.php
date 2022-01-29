@@ -22,15 +22,26 @@ namespace core\utils;
 
 class Logger extends \Threaded
 {
-    public function log($message, ...$args)
+    public function log(string $color, string $type, ?string $message)
     {
-        $this->synchronized(function ($message, ...$args) {
-            $cyan = "\033[0;36m";
+        $this->synchronized(function ($color, $type, $message) {
             $NC = "\033[0m"; # No Color
+            echo vsprintf("{$color} [{$type}] {$message}{$NC}\n", []);
+        }, $color, $type, $message);
+    }
 
-            if (is_callable($message)) {
-                $message(...$args);
-            } else echo vsprintf("{$cyan} [INFO] {$message}{$NC}\n", ...$args);
-        }, $message, $args);
+    public function info(?string $message)
+    {
+        return $this->log("\033[0;36m", "INFO", $message);
+    }
+
+    public function error(?string $message)
+    {
+        return $this->log("\033[0;31m", "ERROR", $message);
+    }
+
+    public function warning(?string $message)
+    {
+        return $this->log("\033[1;33m", "WARNING", $message);
     }
 }
