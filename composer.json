@@ -1,6 +1,9 @@
 {
     "name": "flyxdev/telegram-core",
-    "require": {},
+    "require": {
+      "ext-json": "*",
+        "ext-pthreads": "*"
+    },
     "autoload": {
         "psr-4": {
             "core\\": "src/"
