@@ -1,3 +1,4 @@
-/vendor/
-/bin/
-/config.json
+.idea/
+vendor/
+bin/
+config.json
